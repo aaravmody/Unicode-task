@@ -17,7 +17,13 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Center(child: Text('Contacts')),
+          title: Center(
+              child: Text('Contacts',
+                  style: TextStyle(
+                      fontSize: 32,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white))),
+          backgroundColor: Color.fromARGB(255, 2, 72, 129),
         ),
         body: ListView.builder(
           itemBuilder: (context, index) {

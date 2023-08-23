@@ -1,5 +1,10 @@
+import 'dart:ui';
+
+import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:weather/cityname.dart';
+import 'package:weather/contact_2.dart';
 import 'package:weather/contacts.dart';
 import 'package:weather/login.dart';
 import 'package:weather/weather.dart';
@@ -8,11 +13,17 @@ class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Welcome',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyDashboard(),
+      home: AnimatedSplashScreen(
+        splash: Icon(Icons.home),
+        splashIconSize: 150,
+        splashTransition: SplashTransition.scaleTransition,
+        backgroundColor: Colors.blue,
+        nextScreen: MyDashboard(),
+      ),
     );
   }
 }
@@ -44,63 +55,139 @@ class _MyDashboardState extends State<MyDashboard> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Welcome"),
+        title: Center(
+          child: Wrap(
+            crossAxisAlignment: WrapCrossAlignment.center,
+            children: [
+              Icon(
+                Icons.home,
+                color: Colors.white,
+              ),
+              Text(" Home",
+                  style: TextStyle(
+                      fontSize: 32,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white)),
+            ],
+          ),
+        ),
+        backgroundColor: Color.fromARGB(255, 2, 72, 129),
       ),
       body: Padding(
         padding: const EdgeInsets.all(26.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  'WELCOME TO My app $username',
-                  style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
+        child: SizedBox(
+          width: double.infinity,
+          height: 350,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(25.0),
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: Card(
+                      elevation: 10,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16)),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(16),
+                        child: BackdropFilter(
+                          filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                          child: Padding(
+                            padding: EdgeInsets.all(16.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Center(
+                                  child: Text(
+                                    "Welcome to my app, $username",
+                                    style: TextStyle(
+                                      fontSize: 32,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: ElevatedButton(
-                onPressed: () {
-                  logindata.setBool('login', true);
-                  Navigator.pushReplacement(context,
-                      new MaterialPageRoute(builder: (context) => Login()));
-                },
-                child: Text(
-                  'Log Out',
-                  style: TextStyle(fontSize: 23),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        logindata.setBool('login', true);
+                        Navigator.pushReplacement(
+                            context,
+                            new MaterialPageRoute(
+                                builder: (context) => city()));
+                      },
+                      child: Wrap(
+                          crossAxisAlignment: WrapCrossAlignment.center,
+                          children: [
+                            Icon(Icons.cloud),
+                            Text('  Weather',
+                                style: TextStyle(
+                                  fontSize: 23,
+                                  color: Colors.black,
+                                )),
+                          ]),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStatePropertyAll(Colors.green)),
+                      onPressed: () {
+                        logindata.setBool('Login', true);
+                        Navigator.pushReplacement(
+                            context,
+                            new MaterialPageRoute(
+                                builder: (context) => MyHomePage()));
+                      },
+                      child: Wrap(
+                          crossAxisAlignment: WrapCrossAlignment.center,
+                          children: [
+                            Icon(Icons.person),
+                            Text('  Contacts',
+                                style: TextStyle(
+                                  fontSize: 23,
+                                  color: Colors.white,
+                                )),
+                          ]),
+                    ),
+                  ),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: ElevatedButton(
+                  style: ButtonStyle(
+                      backgroundColor: MaterialStatePropertyAll(Colors.black)),
+                  onPressed: () {
+                    logindata.setBool('login', true);
+                    Navigator.pushReplacement(context,
+                        new MaterialPageRoute(builder: (context) => Login()));
+                  },
+                  child: Text(
+                    'Log Out',
+                    style: TextStyle(fontSize: 20, color: Colors.white),
+                  ),
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ElevatedButton(
-                onPressed: () {
-                  logindata.setBool('login', true);
-                  Navigator.pushReplacement(
-                      context,
-                      new MaterialPageRoute(
-                          builder: (context) => WeatherScreen()));
-                },
-                child: Text('Weather', style: TextStyle(fontSize: 23)),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ElevatedButton(
-                onPressed: () {
-                  logindata.setBool('Login', true);
-                  Navigator.pushReplacement(
-                      context,
-                      new MaterialPageRoute(
-                          builder: (context) => HomeScreen()));
-                },
-                child: Text('Contacts', style: TextStyle(fontSize: 23)),
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

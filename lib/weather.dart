@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+import 'package:weather/cityname.dart';
 
 class WeatherScreen extends StatefulWidget {
   const WeatherScreen({super.key});
@@ -12,6 +13,7 @@ class WeatherScreen extends StatefulWidget {
 }
 
 class _WeatherScreenState extends State<WeatherScreen> {
+  late String naam = cityState.cityname;
   @override
   void initState() {
     super.initState();
@@ -20,7 +22,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
 
   Future<Map<String, dynamic>> getWeather() async {
     try {
-      String cityName = 'Mumbai';
+      String cityName = naam;
       final res = await http.get(
         Uri.parse(
             'https://api.openweathermap.org/data/2.5/forecast?q=$cityName&APPID=f23c50611adde2284c87e599966892a5'),
@@ -43,9 +45,12 @@ class _WeatherScreenState extends State<WeatherScreen> {
         title: const Text(
           'Weather App',
           style: TextStyle(
+            fontSize: 32,
             fontWeight: FontWeight.bold,
+            color: Colors.white,
           ),
         ),
+        backgroundColor: Color.fromARGB(255, 2, 72, 129),
         centerTitle: true,
         actions: [
           InkWell(
@@ -53,7 +58,10 @@ class _WeatherScreenState extends State<WeatherScreen> {
               onTap: () {
                 setState(() {});
               },
-              child: const Icon(Icons.refresh),
+              child: const Icon(
+                Icons.refresh,
+                color: Colors.white,
+              ),
             ),
           ),
         ],

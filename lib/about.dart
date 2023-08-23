@@ -13,7 +13,7 @@ class About extends StatelessWidget {
       appBar: AppBar(
         title: Text('$name'),
       ),
-      body: Container(
+      body: SizedBox(
         width: double.infinity,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,

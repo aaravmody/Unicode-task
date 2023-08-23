@@ -47,10 +47,23 @@ class _LoginState extends State<Login> {
     return Scaffold(
       appBar: AppBar(
         title: Center(
-            child: Text(
-          "My Profile",
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
-        )),
+          child: Wrap(
+            crossAxisAlignment: WrapCrossAlignment.center,
+            children: [
+              Text("My Profile ",
+                  style: TextStyle(
+                      fontSize: 32,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white)),
+              Icon(
+                Icons.person_outlined,
+                color: Colors.white,
+                size: 32,
+              ),
+            ],
+          ),
+        ),
+        backgroundColor: Color.fromARGB(255, 2, 72, 129),
       ),
       body: Container(
         child: Column(
@@ -106,26 +119,61 @@ class _LoginState extends State<Login> {
             SizedBox(
               height: 11,
             ),
-            ElevatedButton(
-                onPressed: () async {
-                  String username = username_controller.text;
-                  String bday = bday_controller.text;
-                  String email = email_controller.text;
-                  String phone = phone_controller.text;
-                  if (username != '' &&
-                      bday != '' &&
-                      email != '' &&
-                      phone != '') {
-                    logindata.setBool('login', false);
-                    logindata.setString('username', username);
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => MyDashboard()));
-                  }
-                },
-                child: Text(
-                  "Log in",
-                  style: TextStyle(fontSize: 20),
-                ))
+            Center(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ElevatedButton(
+                        onPressed: () async {
+                          String username = username_controller.text;
+                          String bday = bday_controller.text;
+                          String email = email_controller.text;
+                          String phone = phone_controller.text;
+                          if (username != '' &&
+                              bday != '' &&
+                              email != '' &&
+                              phone != '') {
+                            logindata.setBool('login', false);
+                            logindata.setString('username', username);
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => MainPage()));
+                          }
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            "Log in",
+                            style: TextStyle(fontSize: 20),
+                          ),
+                        )),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        logindata.setBool('login', true);
+                        Navigator.pushReplacement(
+                            context,
+                            new MaterialPageRoute(
+                                builder: (context) => Login()));
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'Reset',
+                          style: TextStyle(fontSize: 20),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            )
           ],
         ),
       ),

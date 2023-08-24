@@ -7,6 +7,7 @@ import 'package:weather/cityname.dart';
 import 'package:weather/contact_2.dart';
 import 'package:weather/contacts.dart';
 import 'package:weather/login.dart';
+import 'package:weather/tictac.dart';
 import 'package:weather/weather.dart';
 
 class MainPage extends StatelessWidget {
@@ -126,10 +127,8 @@ class _MyDashboardState extends State<MyDashboard> {
                     child: ElevatedButton(
                       onPressed: () {
                         logindata.setBool('login', true);
-                        Navigator.pushReplacement(
-                            context,
-                            new MaterialPageRoute(
-                                builder: (context) => city()));
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => city()));
                       },
                       child: Wrap(
                           crossAxisAlignment: WrapCrossAlignment.center,
@@ -170,21 +169,53 @@ class _MyDashboardState extends State<MyDashboard> {
                   ),
                 ],
               ),
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: ElevatedButton(
-                  style: ButtonStyle(
-                      backgroundColor: MaterialStatePropertyAll(Colors.black)),
-                  onPressed: () {
-                    logindata.setBool('login', true);
-                    Navigator.pushReplacement(context,
-                        new MaterialPageRoute(builder: (context) => Login()));
-                  },
-                  child: Text(
-                    'Log Out',
-                    style: TextStyle(fontSize: 20, color: Colors.white),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStatePropertyAll(Colors.lightBlue)),
+                      onPressed: () {
+                        logindata.setBool('Login', true);
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => tictac()));
+                      },
+                      child: Wrap(
+                          crossAxisAlignment: WrapCrossAlignment.center,
+                          children: [
+                            Icon(Icons.grid_3x3),
+                            Text('  Tic Tac Toe',
+                                style: TextStyle(
+                                  fontSize: 23,
+                                  color: Colors.white,
+                                )),
+                          ]),
+                    ),
                   ),
-                ),
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStatePropertyAll(Colors.black)),
+                      onPressed: () {
+                        logindata.setBool('login', true);
+                        Navigator.pushReplacement(
+                            context,
+                            new MaterialPageRoute(
+                                builder: (context) => Login()));
+                      },
+                      child: Text(
+                        'Log Out',
+                        style: TextStyle(fontSize: 20, color: Colors.white),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),

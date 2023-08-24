@@ -28,10 +28,10 @@ class cityState extends State<city> {
             crossAxisAlignment: WrapCrossAlignment.center,
             children: [
               Icon(
-                Icons.home,
+                Icons.location_city_outlined,
                 color: Colors.white,
               ),
-              Text("City Name",
+              Text(" City Name",
                   style: TextStyle(
                       fontSize: 32,
                       fontWeight: FontWeight.bold,
@@ -42,21 +42,49 @@ class cityState extends State<city> {
         backgroundColor: Color.fromARGB(255, 2, 72, 129),
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(
+          Padding(
+            padding: const EdgeInsets.all(8.0),
             child: TextField(
+              keyboardType: TextInputType.name,
               controller: citycontroller,
+              decoration: InputDecoration(
+                  label: Text("Enter your city"),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20)),
+                  prefixIcon: Icon(Icons.location_city)),
             ),
           ),
-          ElevatedButton(
-              onPressed: () {
-                cityname = citycontroller.text.toString();
-                Navigator.push(
-                    context,
-                    new MaterialPageRoute(
-                        builder: (context) => WeatherScreen()));
-              },
-              child: Text('Enter'))
+          Column(
+            children: [
+              ElevatedButton(
+                  onPressed: () {
+                    cityname = citycontroller.text.toString();
+                    Navigator.push(
+                        context,
+                        new MaterialPageRoute(
+                            builder: (context) => WeatherScreen()));
+                  },
+                  child: Text(
+                    'Enter',
+                    style: TextStyle(fontSize: 25),
+                  )),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: ElevatedButton.icon(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(Icons.arrow_back),
+                    label: Text(
+                      "Go back",
+                      style: TextStyle(fontSize: 25),
+                    )),
+              )
+            ],
+          )
         ],
       ),
     );

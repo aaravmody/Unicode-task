@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weather/success.dart';
 
@@ -84,7 +85,10 @@ class _LoginState extends State<Login> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextField(
-                keyboardType: TextInputType.name,
+                keyboardType: TextInputType.number,
+                inputFormatters: <TextInputFormatter>[
+                  FilteringTextInputFormatter.digitsOnly
+                ],
                 controller: phone_controller,
                 decoration: InputDecoration(
                     label: Text("Enter your Phone number"),

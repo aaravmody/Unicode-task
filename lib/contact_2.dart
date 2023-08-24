@@ -68,7 +68,9 @@ class _MyHomePageState extends State<MyHomePage> {
                       subtitle: Text(num),
                       onTap: () {
                         if (contacts![index].phones.isNotEmpty) {
-                          launch('tel: ${num}');
+                          Navigator.pushNamed(context, '/about',
+                              arguments: contacts![index]);
+                          // launch('tel: ${num}');
                         }
                       });
                 },

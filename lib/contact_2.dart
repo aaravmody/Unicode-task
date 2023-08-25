@@ -14,7 +14,7 @@ class MyHomePageState extends State<MyHomePage> {
   List<Contact>? contacts;
   static late String cname;
   static late String cphone;
-  static late var cimage;
+  static var cimage = Image.asset("");
   @override
   void initState() {
     // TODO: implement initState
@@ -74,7 +74,7 @@ class MyHomePageState extends State<MyHomePage> {
                           cphone = contacts![index].phones.first.number;
                           cname = contacts![index].name.first +
                               contacts![index].name.last;
-                          cimage = contacts![index].photo;
+                          cimage = Image.asset("contacts![index].photo");
                           Navigator.pushNamed(
                             context,
                             '/about',

@@ -23,6 +23,24 @@ class _LoginState extends State<Login> {
     check_if_already_login();
   }
 
+  DateTime selectedDate = DateTime.now();
+
+  Future<void> _selectDate(BuildContext context) async {
+    final picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        firstDate: DateTime(1950),
+        lastDate: DateTime.now());
+
+    if (picked != null && picked != selectedDate) {
+      setState(() {
+        selectedDate = picked;
+        bday_controller.text =
+            "${selectedDate.day}/${selectedDate.month}/${selectedDate.year}";
+      });
+    }
+  }
+
   void check_if_already_login() async {
     logindata = await SharedPreferences.getInstance();
     newuser = (logindata.getBool('login') ?? true);
@@ -85,7 +103,7 @@ class _LoginState extends State<Login> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextField(
-                keyboardType: TextInputType.number,
+                keyboardType: TextInputType.phone,
                 inputFormatters: <TextInputFormatter>[
                   FilteringTextInputFormatter.digitsOnly
                 ],
@@ -100,7 +118,7 @@ class _LoginState extends State<Login> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextField(
-                keyboardType: TextInputType.name,
+                keyboardType: TextInputType.emailAddress,
                 controller: email_controller,
                 decoration: InputDecoration(
                     label: Text("Enter your email"),
@@ -112,12 +130,17 @@ class _LoginState extends State<Login> {
             Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextField(
-                  keyboardType: TextInputType.name,
                   controller: bday_controller,
                   decoration: InputDecoration(
-                      label: Text("Enter your birthday"),
+                      label: Text("Select your birthday"),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20)),
+                      suffixIcon: GestureDetector(
+                        onTap: () {
+                          _selectDate(context);
+                        },
+                        child: Icon(Icons.calendar_month),
+                      ),
                       prefixIcon: Icon(Icons.cake)),
                 )),
             SizedBox(
@@ -161,7 +184,7 @@ class _LoginState extends State<Login> {
                     child: ElevatedButton(
                       onPressed: () {
                         logindata.setBool('login', true);
-                        Navigator.pushReplacement(
+                        Navigator.push(
                             context,
                             new MaterialPageRoute(
                                 builder: (context) => Login()));

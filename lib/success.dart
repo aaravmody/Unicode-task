@@ -7,6 +7,7 @@ import 'package:weather/cityname.dart';
 import 'package:weather/contact_2.dart';
 import 'package:weather/contacts.dart';
 import 'package:weather/login.dart';
+import 'package:weather/qr.dart';
 import 'package:weather/tictac.dart';
 import 'package:weather/weather.dart';
 
@@ -20,7 +21,7 @@ class MainPage extends StatelessWidget {
       ),
       home: AnimatedSplashScreen(
         splash: Icon(Icons.home),
-        splashIconSize: 150,
+        splashIconSize: 200,
         splashTransition: SplashTransition.scaleTransition,
         backgroundColor: Colors.blue,
         nextScreen: MyDashboard(),
@@ -79,8 +80,8 @@ class _MyDashboardState extends State<MyDashboard> {
         child: SizedBox(
           width: double.infinity,
           height: 350,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+          child: Wrap(
+            // mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Center(
                 child: Padding(
@@ -97,8 +98,8 @@ class _MyDashboardState extends State<MyDashboard> {
                           filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
                           child: Padding(
                             padding: EdgeInsets.all(16.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
+                            child: Wrap(
+                              // crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Center(
                                   child: Text(
@@ -118,9 +119,9 @@ class _MyDashboardState extends State<MyDashboard> {
                   ),
                 ),
               ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+              Wrap(
+                // crossAxisAlignment: CrossAxisAlignment.center,
+                // mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -133,7 +134,7 @@ class _MyDashboardState extends State<MyDashboard> {
                       child: Wrap(
                           crossAxisAlignment: WrapCrossAlignment.center,
                           children: [
-                            Icon(Icons.cloud),
+                            Icon(Icons.cloud, color: Colors.black),
                             Text('  Weather',
                                 style: TextStyle(
                                   fontSize: 23,
@@ -150,7 +151,7 @@ class _MyDashboardState extends State<MyDashboard> {
                               MaterialStatePropertyAll(Colors.green)),
                       onPressed: () {
                         logindata.setBool('Login', true);
-                        Navigator.pushReplacement(
+                        Navigator.push(
                             context,
                             new MaterialPageRoute(
                                 builder: (context) => MyHomePage()));
@@ -169,9 +170,9 @@ class _MyDashboardState extends State<MyDashboard> {
                   ),
                 ],
               ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+              Wrap(
+                // crossAxisAlignment: CrossAxisAlignment.center,
+                // mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -187,7 +188,7 @@ class _MyDashboardState extends State<MyDashboard> {
                       child: Wrap(
                           crossAxisAlignment: WrapCrossAlignment.center,
                           children: [
-                            Icon(Icons.grid_3x3),
+                            Icon(Icons.grid_3x3, color: Colors.white),
                             Text('  Tic Tac Toe',
                                 style: TextStyle(
                                   fontSize: 23,
@@ -197,25 +198,45 @@ class _MyDashboardState extends State<MyDashboard> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(20.0),
+                    padding: const EdgeInsets.all(8.0),
                     child: ElevatedButton(
                       style: ButtonStyle(
                           backgroundColor:
-                              MaterialStatePropertyAll(Colors.black)),
+                              MaterialStatePropertyAll(Colors.brown)),
                       onPressed: () {
-                        logindata.setBool('login', true);
-                        Navigator.pushReplacement(
-                            context,
-                            new MaterialPageRoute(
-                                builder: (context) => Login()));
+                        logindata.setBool('Login', true);
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => QrCode()));
                       },
-                      child: Text(
-                        'Log Out',
-                        style: TextStyle(fontSize: 20, color: Colors.white),
-                      ),
+                      child: Wrap(
+                          crossAxisAlignment: WrapCrossAlignment.center,
+                          children: [
+                            Icon(Icons.qr_code, color: Colors.white),
+                            Text('  QR Code Generator',
+                                style: TextStyle(
+                                  fontSize: 23,
+                                  color: Colors.white,
+                                )),
+                          ]),
                     ),
                   ),
                 ],
+              ),
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: ElevatedButton(
+                  style: ButtonStyle(
+                      backgroundColor: MaterialStatePropertyAll(Colors.black)),
+                  onPressed: () {
+                    logindata.setBool('login', true);
+                    Navigator.push(context,
+                        new MaterialPageRoute(builder: (context) => Login()));
+                  },
+                  child: Text(
+                    'Log Out',
+                    style: TextStyle(fontSize: 20, color: Colors.white),
+                  ),
+                ),
               ),
             ],
           ),

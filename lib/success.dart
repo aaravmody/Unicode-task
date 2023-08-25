@@ -79,7 +79,7 @@ class _MyDashboardState extends State<MyDashboard> {
         padding: const EdgeInsets.all(26.0),
         child: SizedBox(
           width: double.infinity,
-          height: 350,
+          height: double.infinity,
           child: Wrap(
             // mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[

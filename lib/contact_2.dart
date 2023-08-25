@@ -7,11 +7,14 @@ class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  MyHomePageState createState() => MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class MyHomePageState extends State<MyHomePage> {
   List<Contact>? contacts;
+  static late String cname;
+  static late String cphone;
+  static late var cimage;
   @override
   void initState() {
     // TODO: implement initState
@@ -68,8 +71,14 @@ class _MyHomePageState extends State<MyHomePage> {
                       subtitle: Text(num),
                       onTap: () {
                         if (contacts![index].phones.isNotEmpty) {
-                          Navigator.pushNamed(context, '/about',
-                              arguments: contacts![index]);
+                          cphone = contacts![index].phones.first.number;
+                          cname = contacts![index].name.first +
+                              contacts![index].name.last;
+                          cimage = contacts![index].photo;
+                          Navigator.pushNamed(
+                            context,
+                            '/about',
+                          );
                           // launch('tel: ${num}');
                         }
                       });

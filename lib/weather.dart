@@ -79,7 +79,9 @@ class _WeatherScreenState extends State<WeatherScreen> {
             }
 
             final data = snapshot.data!;
-            final current = data['list'][0]['main']['temp'];
+            final currenttemp = data['list'][0]['main']['temp'].toString();
+            final tempAsDouble = double.parse(currenttemp);
+            final current = (tempAsDouble - 273).toStringAsFixed(2);
             final sky = data['list'][0]['weather'][0]['main'];
             final pressure = data['list'][0]['main']['pressure'];
             final wind = data['list'][0]['wind']['speed'];
@@ -106,7 +108,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                             child: Column(
                               children: [
                                 Text(
-                                  '$current K',
+                                  '$current °C',
                                   style: TextStyle(
                                     fontSize: 32,
                                     fontWeight: FontWeight.bold,
@@ -153,8 +155,11 @@ class _WeatherScreenState extends State<WeatherScreen> {
                                 .format(DateTime.parse(
                                     data['list'][i + 1]['dt_txt']))
                                 .toString(),
-                            temperature:
-                                data['list'][i + 1]['main']['temp'].toString(),
+                            temperature: (double.parse(data['list'][i + 1]
+                                            ['main']['temp']
+                                        .toString()) -
+                                    273)
+                                .toStringAsFixed(2),
                             icon: data['list'][i + 1]['weather'][0]['main'] ==
                                         'Clouds' ||
                                     data['list'][i + 1]['weather'][0]['main'] ==
@@ -277,7 +282,7 @@ class HourlyForecastItem extends StatelessWidget {
               height: 8,
             ),
             Text(
-              '$temperature K',
+              '$temperature °C',
             ),
           ],
         ),
